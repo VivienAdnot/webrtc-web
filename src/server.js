@@ -9,7 +9,7 @@ var fileServer = new(nodeStatic.Server)();
 
 var app = http.createServer(function(req, res) {
     fileServer.serve(req, res);
-}).listen(9090);
+}).listen(9050);
 
 var io = socketIO.listen(app);
 io.sockets.on('connection', function(socket) {
