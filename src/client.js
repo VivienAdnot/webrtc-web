@@ -14,64 +14,6 @@ var room = 'foo';
 
 var socket = io.connect();
 
-// handlers deco
-
-function logEvent(name, data) {
-    console.log('event', name, data);
-}
-
-socket.on('connect_error', (error) => {
-    logEvent('connect_error', error);
-});
-
-socket.on('connect_timeout', (timeout) => {
-    logEvent('connect_timeout');
-});
-
-socket.on('error', (error) => {
-    logEvent('error', error);
-});
-
-socket.on('disconnect', (reason) => {
-    logEvent('error', reason);
-
-    if (reason === 'io server disconnect') {
-        // the disconnection was initiated by the server, you need to reconnect manually
-        socket.connect();
-    }
-    // else the socket will automatically try to reconnect
-});
-
-socket.on('reconnect', (attemptNumber) => {
-    logEvent('reconnect', attemptNumber);
-});
-
-socket.on('reconnect_attempt', (attemptNumber) => {
-    logEvent('reconnect_attempt', attemptNumber);
-});
-
-socket.on('reconnecting', (attemptNumber) => {
-    logEvent('reconnecting', attemptNumber);
-});
-
-socket.on('reconnect_error', (error) => {
-    logEvent('reconnect_error', error);
-});
-
-socket.on('reconnect_failed', () => {
-    logEvent('reconnect_failed');
-});
-
-socket.on('ping', () => {
-    logEvent('ping');
-});
-
-socket.on('pong', (latency) => {
-    logEvent('pong', latency);
-});
-
-// !handlers deco
-
 if (room !== '') {
 
     socket.emit('create or join', room);
